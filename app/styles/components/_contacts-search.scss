@@ -1,0 +1,15 @@
+.search-contact {
+  input {
+    border-radius: 3px;
+    border: none;
+    padding: 14px;
+    color: white;
+    background: $grey-font;
+    font-size: 14px;
+  }
+
+  .fa-search {
+    position: relative;
+    left: -25px;
+  }
+}

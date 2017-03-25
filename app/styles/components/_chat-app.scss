@@ -1,0 +1,16 @@
+.chat-app-container {
+  display: flex;
+  margin: 0 auto;
+  border-radius: 5px;
+  background: $black-bg;
+  color: white;
+  width: 750px;
+  min-height: 600px;
+
+  .contacts {
+    flex: 2;
+  }
+  .chat {
+    flex: 4;
+  }
+}

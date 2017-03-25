@@ -1,0 +1,19 @@
+@import "base/variables";
+
+@import "components/chat-app";
+@import "components/contacts";
+@import "components/chat";
+@import "components/contacts-search";
+@import "components/chat-message";
+@import "components/chat-header";
+@import "components/chat-history";
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+body {
+  font: $font;
+  background-color: $blue-bg;
+  padding-top: 40px;
+}
