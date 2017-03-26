@@ -1,6 +1,16 @@
 var path = require('path');
 var webpack = require('webpack');
 
+var envFile = require('node-env-file');
+
+process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+
+try {
+  envFile(path.join(__dirname, 'config/' + process.env.NODE_ENV + '.env'));
+} catch (e) {
+  throw new Error('Error enviroment Setup');
+}
+
 module.exports = {
   entry: [
     './app/app.jsx'
@@ -18,6 +28,7 @@ module.exports = {
       app: path.join(__dirname, 'app'),
       applicationStyles: path.join(__dirname, 'app/styles/app.scss'),
       reducers: 'app/reducers/reducers.jsx',
+      actions: 'app/actions/actions.jsx',
       configureStore: 'app/store/configureStore.jsx'
     },
     extensions: ['.js', '.jsx']
@@ -27,6 +38,15 @@ module.exports = {
       compress: {
         warnings: false,
         drop_console: false,
+      }
+    }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+        API_KEY: JSON.stringify(process.env.API_KEY),
+        AUTH_DOMAIN: JSON.stringify(process.env.AUTH_DOMAIN),
+        DATABASE_URL: JSON.stringify(process.env.DATABASE_URL),
+        STORAGE_BUCKET: JSON.stringify(process.env.STORAGE_BUCKET)
       }
     })
   ],

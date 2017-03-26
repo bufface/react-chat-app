@@ -21,18 +21,8 @@
       cursor: pointer;
     }
 
-    button {
+    .send-button {
       float: right;
-      color: $blue-button;
-      font-size: 16px;
-      text-transform: uppercase;
-      border: none;
-      cursor: pointer;
-      font-weight: bold;
-      background: $grey-bg;
-      &:hover {
-        color: $blue-button-hover;
-      }
     }
   }
 }
