@@ -36,7 +36,7 @@ export default class ChatMessage extends React.Component {
           <div className="actions">
             <i className="fa fa-file-o"></i>
             <i className="fa fa-file-image-o"></i>
-            <button type="submit">Enviar</button>
+            <button type="submit">Send</button>
           </div>
         </form>
       </div>

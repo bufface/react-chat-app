@@ -15,7 +15,10 @@ module.exports = {
       'node_modules'
     ],
     alias: {
+      app: path.join(__dirname, 'app'),
       applicationStyles: path.join(__dirname, 'app/styles/app.scss'),
+      reducers: 'app/reducers/reducers.jsx',
+      configureStore: 'app/store/configureStore.jsx'
     },
     extensions: ['.js', '.jsx']
   },

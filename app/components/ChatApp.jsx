@@ -1,9 +1,10 @@
 import React from 'react';
+import * as Redux from 'react-redux';
 
 import Chat from 'Chat';
 import Contacts from 'Contacts';
 
-export default class ChatApp extends React.Component {
+class ChatApp extends React.Component {
   render() {
     return (
       <div className="chat-app-container">
@@ -13,3 +14,5 @@ export default class ChatApp extends React.Component {
     );
   }
 }
+
+export default Redux.connect()(ChatApp);
