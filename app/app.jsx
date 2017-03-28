@@ -21,7 +21,7 @@ firebase.auth().onAuthStateChanged((user) => {
 });
 
 // Fired when user close the currenty window
-window.onbeforeunload = () => store.dispatch(actions.setUserOffline());
+window.onbeforeunload = () => store.dispatch(actions.startSetUserOffline());
 
 // Styles
 import 'style-loader!css-loader!sass-loader!applicationStyles';

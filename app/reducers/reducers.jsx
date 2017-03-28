@@ -29,6 +29,18 @@ export const usersReducer = (state = [], action) => {
           return user;
         }
       });
+    case 'SET_AS_ACTIVE':
+      return state.map((user) => {
+        if (user.uid === action.uid) {
+          return {
+            ...user,
+            active: true
+          }
+        } else {
+          delete user.chatActive;;
+          return user;
+        }
+      });
     case 'LOGOUT':
       return [];
     default:

@@ -1,0 +1,27 @@
+.chat-header {
+  padding: 20px;
+  .contact-active {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    img.avatar {
+      border-color: $green-status-online;
+    }
+    .contact-info {
+      padding-left: 10px;
+      margin-top: 6px;
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      span {
+        font-weight: bold;
+        font-size: 16px;
+        color: $black-bg;
+        &.status {
+          font-size: 20px;
+          color: $grey-star-font
+        }
+      }
+    }
+  }
+}

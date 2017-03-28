@@ -14,11 +14,15 @@ class Contact extends React.Component {
       dispatch(actions.updateUser(userChanged.uid, userChanged));
     });
   }
+  handleClick() {
+    const { uid, dispatch } = this.props;
+    dispatch(actions.setUserAsActive(uid));
+  }
   render() {
     const { avatar, name, status } = this.props;
 
     return (
-      <div className="contact">
+      <div className="contact" onClick={this.handleClick.bind(this)}>
         <img className="avatar" src={ avatar } />
         <div className="contact-info">
           <span>{ name }</span>

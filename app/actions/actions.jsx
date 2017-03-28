@@ -33,7 +33,7 @@ export const logout = () => {
 
 export const startLogout = () => {
   return (dispatch, getState) => {
-    dispatch(setUserOffline());
+    dispatch(startSetUserOffline());
     return firebase.auth().signOut()
     .then(() => {
       console.log('Logged out!');
@@ -46,14 +46,14 @@ export const startAddUsers = () => {
   return (dispatch, getState) => {
     const user = getState().auth;
     firebaseRef.child(`users/${user.uid}`).set(user);
-  }
+  };
 };
 
 export const addUser = (user) => {
   return {
     type: 'ADD_USER',
     user
-  }
+  };
 };
 
 export const updateUser = (uid, user) => {
@@ -61,12 +61,20 @@ export const updateUser = (uid, user) => {
     type: 'UPDATE_USER',
     uid,
     user
-  }
+  };
 };
 
-export const setUserOffline = () => {
+export const startSetUserOffline = () => {
   return (dispatch, getState) => {
     const user = getState().auth;
     firebaseRef.child(`users/${user.uid}`).update({status: 'offline'});
-  }
+  };
+};
+
+// Chat
+export const setUserAsActive = (uid) => {
+  return {
+    type: 'SET_AS_ACTIVE',
+    uid
+  };
 };

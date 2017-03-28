@@ -18,7 +18,7 @@ class Contacts extends React.Component {
     });
   }
   renderContact() {
-    const { users } = this.props;
+    const { users, auth } = this.props;
 
     if (users.length < 1) {
       return (
@@ -29,7 +29,9 @@ class Contacts extends React.Component {
     }
 
     return users.map((user) => {
-      return <Contact key={ user.uid } { ...user } />
+      if (auth.uid !== user.uid) {
+        return <Contact key={ user.uid } { ...user } />
+      }
     });
   }
   render() {
