@@ -33,8 +33,7 @@ export const logout = () => {
 
 export const startLogout = () => {
   return (dispatch, getState) => {
-    const user = getState().auth;
-    firebaseRef.child(`users/${user.uid}`).update({status: 'offline'});
+    dispatch(setUserOffline());
     return firebase.auth().signOut()
     .then(() => {
       console.log('Logged out!');
@@ -62,5 +61,12 @@ export const updateUser = (uid, user) => {
     type: 'UPDATE_USER',
     uid,
     user
+  }
+};
+
+export const setUserOffline = () => {
+  return (dispatch, getState) => {
+    const user = getState().auth;
+    firebaseRef.child(`users/${user.uid}`).update({status: 'offline'});
   }
 };
