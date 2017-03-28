@@ -11,36 +11,32 @@ class Contacts extends React.Component {
     const userRef = firebaseRef.child('users');
     const { users, dispatch } = this.props;
 
+    // Fired when new user is created
     userRef.on('child_added', (snapshot) => {
       const userAdded = snapshot.val();
       dispatch(actions.addUser(userAdded));
     });
-    userRef.on('child_changed', (snapshot) => {
-      const userChanged = snapshot.val();
-      dispatch(actions.updateUser(userChanged.uid, userChanged));
+  }
+  renderContact() {
+    const { users } = this.props;
+
+    if (users.length < 1) {
+      return (
+        <div className="text-no-contacts">
+          <p>No people connected</p>
+        </div>
+      );
+    }
+
+    return users.map((user) => {
+      return <Contact key={ user.uid } { ...user } />
     });
   }
   render() {
-    const { users } = this.props;
-
-    const renderContacts = () => {
-      if (users.length < 1) {
-        return (
-          <div className="text-no-contacts">
-            <p>No people connected</p>
-          </div>
-        );
-      }
-
-      return users.map((user) => {
-        return <Contact key={ user.uid } { ...user } />
-      });
-    };
-
     return (
       <div className="contacts">
         <ContactsSearch />
-        { renderContacts() }
+        { this.renderContact() }
       </div>
     );
   }
