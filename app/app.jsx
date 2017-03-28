@@ -4,14 +4,13 @@ import { Provider } from 'react-redux'
 import { hashHistory } from 'react-router'
 
 import router from 'app/router/';
-import firebase, { firebaseRef } from 'app/firebase/';
+import firebase from 'app/firebase/';
 import * as actions from 'actions';
 
 const store = require('configureStore').configure();
 
 firebase.auth().onAuthStateChanged((user) => {
   if (user) {
-    console.log(user);
     store.dispatch(actions.login(user));
     store.dispatch(actions.startAddUsers());
     hashHistory.push('/room');

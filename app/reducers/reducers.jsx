@@ -13,11 +13,22 @@ export const authReducer = (state = {}, action) => {
 
 export const usersReducer = (state = [], action) => {
   switch (action.type) {
-    case 'ADD_USERS':
+    case 'ADD_USER':
       return [
         ...state,
-        action.users
+        action.user
       ];
+    case 'UPDATE_USER':
+      return state.map((user) => {
+        if (user.uid === action.uid) {
+          return {
+            ...user,
+            ...action.user
+          }
+        } else {
+          return user;
+        }
+      });
     case 'LOGOUT':
       return [];
     default:

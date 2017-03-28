@@ -8,7 +8,7 @@ export const login = (user) => {
       uid: user.uid,
       name: user.displayName || user.email,
       avatar: user.photoURL || false,
-      status: 'active'
+      status: 'online'
     }
   };
 };
@@ -34,7 +34,7 @@ export const logout = () => {
 export const startLogout = () => {
   return (dispatch, getState) => {
     const user = getState().auth;
-    firebaseRef.child(`users/${user.uid}`).update({status: 'disconected'});
+    firebaseRef.child(`users/${user.uid}`).update({status: 'offline'});
     return firebase.auth().signOut()
     .then(() => {
       console.log('Logged out!');
@@ -47,13 +47,20 @@ export const startAddUsers = () => {
   return (dispatch, getState) => {
     const user = getState().auth;
     firebaseRef.child(`users/${user.uid}`).set(user);
-    dispatch(addUsers(user));
   }
 };
 
-export const addUsers = (users) => {
+export const addUser = (user) => {
   return {
-    type: 'ADD_USERS',
-    users
+    type: 'ADD_USER',
+    user
+  }
+};
+
+export const updateUser = (uid, user) => {
+  return {
+    type: 'UPDATE_USER',
+    uid,
+    user
   }
 };

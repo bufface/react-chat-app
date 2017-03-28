@@ -1,0 +1,27 @@
+.contact {
+  img {
+    margin: 0;
+    display: inline-block;
+    width: 55px;
+    height: 55px;
+    border-radius: 50px;
+    border: 3px solid $grey-status-font;
+  }
+  .contact-info {
+    padding-left: 8px;
+    margin-top: 8px;
+    span {
+      display: block;
+      &.status {
+        color: $grey-status-font;
+        i {
+          margin-right: 3px;
+          font-size: 10px;
+          &.online {
+            color: $green-status-online;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,5 +1,5 @@
 import React from 'react';
-import * as Redux from 'react-redux';
+import { connect } from 'react-redux';
 import * as actions from 'actions';
 
 import Chat from 'Chat';
@@ -23,4 +23,4 @@ class ChatApp extends React.Component {
   }
 }
 
-export default Redux.connect()(ChatApp);
+export default connect()(ChatApp);
