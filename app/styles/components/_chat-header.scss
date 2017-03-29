@@ -19,7 +19,11 @@
         color: $black-bg;
         &.status {
           font-size: 20px;
-          color: $grey-star-font
+          color: $grey-star-font;
+          &:hover {
+            cursor: pointer;
+            color: gold;
+          }
         }
       }
     }

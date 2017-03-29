@@ -37,7 +37,7 @@ export const usersReducer = (state = [], action) => {
             active: true
           }
         } else {
-          delete user.chatActive;;
+          delete user.chatActive;
           return user;
         }
       });

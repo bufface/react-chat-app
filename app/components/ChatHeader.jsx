@@ -3,30 +3,28 @@ import { connect } from 'react-redux';
 
 class ChatHeader extends React.Component {
   render() {
-    const { users } = this.props;
-    const renderActiveUser = () => {
-      return users.map((user) => {
-        if (user.hasOwnProperty('active')) {
-          return (
-            <div key={user.uid} className="contact-active">
-              <img className="avatar" src={ user.avatar } />
-              <div className="contact-info">
-                <span>{ user.name }</span>
-                <span className="status">
-                  <i className="fa fa-star"></i>
-                </span>
-              </div>
+    const renderContact = () => {
+      const { name, avatar } = this.props;
+      if (name && avatar) {
+        return (
+          <div className="contact-active">
+            <img className="avatar" src={ avatar } />
+            <div className="contact-info">
+              <span>{ name }</span>
+              <span className="status">
+              <i className="fa fa-star"></i>
+            </span>
             </div>
-          );
-        }
-      });
+          </div>
+        );
+      }
     }
     return (
       <div className="chat-header">
-        { renderActiveUser() }
+        { renderContact() }
       </div>
     );
   }
 }
 
-export default connect(state => state)(ChatHeader);
+export default connect()(ChatHeader);
