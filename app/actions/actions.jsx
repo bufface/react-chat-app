@@ -72,27 +72,21 @@ export const startSetUserOffline = () => {
 };
 
 // Chat
-export const setUserAsActive = (uid) => {
+export const setUserAsActive = (contactId, authId) => {
   return {
     type: 'SET_AS_ACTIVE',
-    uid
+    contactId,
+    authId
   }
 };
 
-export const startAddMessage = (message) => {
+export const startAddMessage = (message, roomKey) => {
   return (dispatch, getState) => {
-    const user = getState().auth;
-    let roomKey = '';
 
-    if (message.user > user.uid) {
-      roomKey = `${user.uid}${message.user}`;
-    } else {
-      roomKey = `${message.user}${user.uid}`;
-    }
-
-    firebaseRef.child(`rooms/${roomKey}`).push(message);
-
-    dispatch(addMessage(message));
+    let roomsRef = firebaseRef.child(`rooms/${roomKey}`).push(message);
+    return roomsRef.then(() => {
+      dispatch(addMessage(message));
+    });
   };
 };
 

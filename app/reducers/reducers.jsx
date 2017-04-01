@@ -31,13 +31,16 @@ export const usersReducer = (state = [], action) => {
       });
     case 'SET_AS_ACTIVE':
       return state.map((user) => {
-        if (user.uid === action.uid) {
+        if (user.uid === action.contactId) {
+          const roomKey = (action.contactId > action.authId) ? `${action.authId}${action.contactId}` : `${action.contactId}${action.authId}`;
           return {
             ...user,
-            active: true
+            active: true,
+            roomKey
           }
         } else {
-          delete user.chatActive;
+          delete user.active;
+          delete user.roomKey;
           return user;
         }
       });
@@ -51,10 +54,10 @@ export const usersReducer = (state = [], action) => {
 export const messagesReducer = (state = [], action) => {
   switch (action.type) {
     case 'ADD_MESSAGE':
-      return {
+      return [
         ...state,
-        ...action.message
-      };
+        action.message
+      ];
     case 'LOGOUT':
       return [];
     default:

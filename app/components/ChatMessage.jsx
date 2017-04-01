@@ -6,17 +6,17 @@ import firebase from 'app/firebase';
 class ChatMessage extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
-    const { uid, dispatch } = this.props;
+    const { uid, roomKey, dispatch } = this.props;
     let message = this.refs.message.value.trim();
 
     if (message) {
-      const objMessaje = {
+      const objMessage = {
         kind: 'message',
         user: uid,
         createdAt: firebase.database.ServerValue.TIMESTAMP,
         message
       };
-      dispatch(actions.startAddMessage(objMessaje));
+      dispatch(actions.startAddMessage(objMessage, roomKey));
       this.refs.message.value = '';
     }
   }

@@ -15,8 +15,8 @@ class Contact extends React.Component {
     });
   }
   handleClick() {
-    const { uid, dispatch } = this.props;
-    dispatch(actions.setUserAsActive(uid));
+    const { uid, auth, dispatch } = this.props;
+    dispatch(actions.setUserAsActive(uid, auth.uid));
   }
   render() {
     const { avatar, name, status } = this.props;
@@ -36,4 +36,4 @@ class Contact extends React.Component {
   }
 }
 
-export default connect()(Contact);
+export default connect(state => state)(Contact);
