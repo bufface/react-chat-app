@@ -10,17 +10,17 @@ export const login = (user) => {
       avatar: user.photoURL || false,
       status: 'online'
     }
-  };
+  }
 };
 
 export const startLogin = () => {
   return (dispatch, getState) => {
     firebase.auth().signInWithPopup(githubProvider)
-    .then((result) => {
-      console.log('Auth worked!');
-    }, (error) => {
-      console.log('Unable to auth');
-    });
+      .then((result) => {
+        console.log('Auth worked!');
+      }, (error) => {
+        console.log('Unable to auth');
+      });
   };
 };
 
@@ -28,16 +28,16 @@ export const startLogin = () => {
 export const logout = () => {
   return {
     type: 'LOGOUT'
-  };
+  }
 };
 
 export const startLogout = () => {
   return (dispatch, getState) => {
     dispatch(startSetUserOffline());
     return firebase.auth().signOut()
-    .then(() => {
-      console.log('Logged out!');
-    });
+      .then(() => {
+        console.log('Logged out!');
+      });
   };
 };
 
@@ -53,7 +53,7 @@ export const addUser = (user) => {
   return {
     type: 'ADD_USER',
     user
-  };
+  }
 };
 
 export const updateUser = (uid, user) => {
@@ -61,14 +61,14 @@ export const updateUser = (uid, user) => {
     type: 'UPDATE_USER',
     uid,
     user
-  };
+  }
 };
 
 export const startSetUserOffline = () => {
   return (dispatch, getState) => {
     const user = getState().auth;
     firebaseRef.child(`users/${user.uid}`).update({status: 'offline'});
-  };
+  }
 };
 
 // Chat
@@ -76,5 +76,29 @@ export const setUserAsActive = (uid) => {
   return {
     type: 'SET_AS_ACTIVE',
     uid
+  }
+};
+
+export const startAddMessage = (message) => {
+  return (dispatch, getState) => {
+    const user = getState().auth;
+    let roomKey = '';
+
+    if (message.user > user.uid) {
+      roomKey = `${user.uid}${message.user}`;
+    } else {
+      roomKey = `${message.user}${user.uid}`;
+    }
+
+    firebaseRef.child(`rooms/${roomKey}`).push(message);
+
+    dispatch(addMessage(message));
   };
+};
+
+export const addMessage = (message) => {
+  return {
+    type: 'ADD_MESSAGE',
+    message
+  }
 };

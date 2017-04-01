@@ -1,7 +1,6 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
-class ChatHeader extends React.Component {
+export default class ChatHeader extends React.Component {
   render() {
     const renderContact = () => {
       const { name, avatar } = this.props;
@@ -12,13 +11,13 @@ class ChatHeader extends React.Component {
             <div className="contact-info">
               <span>{ name }</span>
               <span className="status">
-              <i className="fa fa-star"></i>
+              <i className="fa fa-star" />
             </span>
             </div>
           </div>
         );
       }
-    }
+    };
     return (
       <div className="chat-header">
         { renderContact() }
@@ -26,5 +25,3 @@ class ChatHeader extends React.Component {
     );
   }
 }
-
-export default connect()(ChatHeader);

@@ -3,9 +3,9 @@ export const authReducer = (state = {}, action) => {
     case 'LOGIN':
       return {
         ...action.user
-      }
+      };
     case 'LOGOUT':
-      return {}
+      return {};
     default:
       return state;
   }
@@ -41,6 +41,20 @@ export const usersReducer = (state = [], action) => {
           return user;
         }
       });
+    case 'LOGOUT':
+      return [];
+    default:
+      return state;
+  }
+};
+
+export const messagesReducer = (state = [], action) => {
+  switch (action.type) {
+    case 'ADD_MESSAGE':
+      return {
+        ...state,
+        ...action.message
+      };
     case 'LOGOUT':
       return [];
     default:

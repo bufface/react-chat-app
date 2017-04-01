@@ -1,41 +1,42 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import * as actions from 'actions';
+import firebase from 'app/firebase';
 
-export default class ChatMessage extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = { textMessage: '' };
-
-    this.handleSubmit = this.handleSubmit.bind(this)
-    this.handleChange = this.handleChange.bind(this)
-  }
-  handleChange(event) {
-    const messageText = event.target.value;
-    const name = event.target.name;
-
-    this.setState({
-      [name]: messageText
-    });
-  }
+class ChatMessage extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
-    console.log('Form Submitted, message: ', this.state.textMessage);
+    const { uid, dispatch } = this.props;
+    let message = this.refs.message.value.trim();
+
+    if (message) {
+      const objMessaje = {
+        kind: 'message',
+        user: uid,
+        createdAt: firebase.database.ServerValue.TIMESTAMP,
+        message
+      };
+      dispatch(actions.startAddMessage(objMessaje));
+      this.refs.message.value = '';
+    }
   }
   render() {
+    const { uid } = this.props;
+    const isActive = uid ? 'chat-message' : 'chat-message not-active';
+
+    if (uid) { this.refs.message.focus(); }
+
     return (
-      <div className="chat-message">
-        <form onSubmit={this.handleSubmit}>
+      <div className={isActive}>
+        <form onSubmit={this.handleSubmit.bind(this)}>
           <textarea
-            name="textMessage"
-            id="message-to-send"
+            ref="message"
             placeholder="Type your message"
             rows="3"
-            value={this.state.textMessage}
-            onChange={this.handleChange}
           />
           <div className="actions">
-            <i className="fa fa-file-o"></i>
-            <i className="fa fa-file-image-o"></i>
+            <i className="fa fa-file-o" />
+            <i className="fa fa-file-image-o" />
             <button type="submit" className="button send-button">Send</button>
           </div>
         </form>
@@ -43,3 +44,5 @@ export default class ChatMessage extends React.Component {
     );
   }
 }
+
+export default connect()(ChatMessage);

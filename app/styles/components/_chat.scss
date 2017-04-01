@@ -8,7 +8,7 @@
   .chat-header {
     flex: 1;
     border-bottom: 2px solid white;
-    max-height: 100px;
+    min-height: 100px;
   }
   .chat-message {
     flex: 1;

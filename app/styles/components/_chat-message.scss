@@ -1,6 +1,9 @@
 .chat-message {
   padding: 20px;
 
+  &.not-active {
+    pointer-events: none;
+  }
   textarea {
     width: 100%;
     border: none;

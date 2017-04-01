@@ -6,20 +6,18 @@ import ChatHistory from 'ChatHistory';
 import ChatMessage from 'ChatMessage';
 
 class Chat extends React.Component {
-  renderChatHeader() {
+  render() {
     const { users } = this.props;
-    const contact = users.find((user) => {
+
+    const userSelected = users.find((user) => {
       return user.hasOwnProperty('active');
     });
 
-    return <ChatHeader { ...contact } />
-  }
-  render() {
     return (
       <div className="chat">
-        { this.renderChatHeader() }
+        <ChatHeader { ...userSelected } />
         <ChatHistory />
-        <ChatMessage />
+        <ChatMessage { ...userSelected } />
       </div>
     );
   }
