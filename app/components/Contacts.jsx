@@ -1,26 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { firebaseRef } from 'app/firebase';
-import * as actions from 'actions'
 
 import ContactsSearch from 'ContactsSearch';
 import Contact from 'Contact';
 
 class Contacts extends React.Component {
-  componentDidMount() {
-    const userRef = firebaseRef.child('users');
-    const { users, dispatch } = this.props;
-
-    // Fired when new user is created
-    userRef.on('child_added', (snapshot) => {
-      const userAdded = snapshot.val();
-      dispatch(actions.addUser(userAdded));
-    });
-  }
   renderContact() {
     const { users, auth } = this.props;
 
-    if (users.length < 1) {
+    // Number 1 It's me
+    if (users.length < 2) {
       return (
         <div className="text-no-contacts">
           <p>No people connected</p>
@@ -44,6 +33,4 @@ class Contacts extends React.Component {
   }
 }
 
-export default connect(
-  state => state
-)(Contacts);
+export default connect( state => state )(Contacts);

@@ -13,10 +13,21 @@
   .login-button {
     align-self: center;
     margin: 0 auto;
+    padding: 15px;
+    color: $black-bg;
+    border-radius: 3px;
+    &:hover {
+      opacity: .8;
+    }
   }
   .logout-button {
     position: absolute;
     top: 5px;
     right: 5px;
+    color: $black-bg;
+    border-radius: 3px;
+    &:hover {
+      opacity: .8;
+    }
   }
 }

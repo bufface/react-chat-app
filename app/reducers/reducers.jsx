@@ -53,6 +53,11 @@ export const usersReducer = (state = [], action) => {
 
 export const messagesReducer = (state = [], action) => {
   switch (action.type) {
+    case 'ADD_MESSAGES':
+      return [
+        ...state,
+        ...action.messages
+      ];
     case 'ADD_MESSAGE':
       return [
         ...state,

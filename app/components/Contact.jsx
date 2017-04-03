@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { firebaseRef } from 'app/firebase';
-import * as actions from 'actions'
+import * as actions from 'actions';
 
 class Contact extends React.Component {
   componentDidMount() {

@@ -45,7 +45,15 @@ export const startLogout = () => {
 export const startAddUsers = () => {
   return (dispatch, getState) => {
     const user = getState().auth;
-    firebaseRef.child(`users/${user.uid}`).set(user);
+    firebaseRef.child(`users/${user.uid}`).set(user)
+      .then(() => {
+        // Getting users list
+        firebaseRef.child('users')
+          .on('child_added', (snapshot) => {
+            const usersObj = snapshot.val();
+            dispatch(addUser(usersObj));
+          });
+      });
   };
 };
 
@@ -71,7 +79,6 @@ export const startSetUserOffline = () => {
   }
 };
 
-// Chat
 export const setUserAsActive = (contactId, authId) => {
   return {
     type: 'SET_AS_ACTIVE',
@@ -80,14 +87,48 @@ export const setUserAsActive = (contactId, authId) => {
   }
 };
 
+// Chat
 export const startAddMessage = (message, roomKey) => {
   return (dispatch, getState) => {
-
     let roomsRef = firebaseRef.child(`rooms/${roomKey}`).push(message);
     return roomsRef.then(() => {
       dispatch(addMessage(message));
     });
   };
+};
+
+// Get previous messages
+export const startAddMessages = (roomKey) => {
+  return (dispatch, getState) => {
+    const roomRef = firebaseRef.child(`rooms/${roomKey}`);
+
+    return roomRef.orderByChild("createdAt")
+      .limitToLast(10)
+      .endAt(Date.now())
+      .once('value')
+      .then(snapshot => {
+        const messages = snapshot.val();
+        let parsedMessages = [];
+
+        if (messages) {
+          Object.keys(messages).forEach((messageId) => {
+            parsedMessages.push({
+              id: messageId,
+              ...messages[messageId]
+            });
+          });
+        }
+        // console.log(addMessages(parsedMessages));
+        dispatch(addMessages(parsedMessages));
+      });
+  }
+};
+
+export const addMessages = (messages) => {
+  return {
+    type: 'ADD_MESSAGES',
+    messages
+  }
 };
 
 export const addMessage = (message) => {
