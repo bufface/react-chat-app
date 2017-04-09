@@ -5,10 +5,16 @@ import ChatMessageBubble from 'ChatMessageBubble';
 export default class ChatHistory extends React.Component {
   render() {
     const renderMessages = () => {
-      const { messages } = this.props;
+      const { messages, auth } = this.props;
+
       if (messages.length > 0) {
         return messages.map((message) => {
-          return <ChatMessageBubble key={message.id} />
+          let messageOwner = (message.user === auth.uid) ? 'message-data message-user' : 'message-data message-guest';
+          return (
+           <div key={message.id} className={messageOwner}>
+             <ChatMessageBubble message={message.message} />
+           </div>
+          )
         });
       }
       return;
