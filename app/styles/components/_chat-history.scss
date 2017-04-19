@@ -4,20 +4,20 @@
   flex-direction: column;
 
   .message-data {
-    width: 85%;
-    margin-top: 20px;
-    border-radius: 7px;
-    padding: 0 20px;
+    //width: 85%;
+    //margin: 15px 15px 0 15px;
+    //border-radius: 7px;
+    //padding: 0 20px;
 
-    &.message-guest {
-      margin-left: 20px;
+    .message-guest {
+      //margin-left: 20px;
       background: $green-status-online;
     }
 
-    &.message-user {
-      margin-right: 20px;
+    .message-user {
+      //align-self: flex-end;
+      //margin-right: 20px;
       background: $blue-button-hover;
-      align-self: flex-end;
     }
   }
 }

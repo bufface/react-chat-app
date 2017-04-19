@@ -22,7 +22,7 @@ class Chat extends React.Component {
     return (
       <div className="chat">
         <ChatHeader { ...userSelected } />
-        <ChatHistory messages={messages} auth={auth} />
+        <ChatHistory messages={messages} auth={auth} userActive={userSelected} />
         <ChatMessage { ...userSelected } />
       </div>
     );
